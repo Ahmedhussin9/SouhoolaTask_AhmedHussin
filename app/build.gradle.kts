@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -56,4 +59,36 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.coil)
+    implementation(libs.coil.compose)   // Coil integration with Compose (if needed)
+    implementation(libs.hilt.android) // Hilt core library
+    kapt(libs.hilt.compiler) // Hilt compiler
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.navigation.compose)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.runtime.livedata)
+    kapt(libs.room.compiler) // For Kotlin annotation processing
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.opencsv)
+
+
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.ksp)
+
+    implementation(libs.swipeRefresh)
+    implementation(libs.accompanist.swiperefresh)
+    implementation(libs.okhttp.logging)
+
+}
+kapt {
+    correctErrorTypes = true
 }
