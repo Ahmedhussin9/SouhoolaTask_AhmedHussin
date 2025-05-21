@@ -24,6 +24,9 @@ accompanist-swiperefresh = "0.33.2-alpha"
 ksp = "2.0.0-1.0.24"
 okhttp = "4.12.0"
 opencsv = "5.5.2"
+paging-runtime = "3.3.6"
+paging-compose = "3.3.6"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +43,9 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging-runtime" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
+
 
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }

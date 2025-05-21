@@ -88,6 +88,9 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.okhttp.logging)
 
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
 }
 kapt {
     correctErrorTypes = true
