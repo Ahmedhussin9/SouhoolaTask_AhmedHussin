@@ -1,6 +1,7 @@
 package com.souhoolatask_ahmedhussin.presentaion.news
 
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,6 +50,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.souhoolatask_ahmedhussin.R
 import com.souhoolatask_ahmedhussin.domain.dto.Article
 import com.souhoolatask_ahmedhussin.presentaion.composables.NewsItem
 import com.souhoolatask_ahmedhussin.presentaion.composables.SearchBar
@@ -129,10 +132,17 @@ fun NewsScreenContent(
                             contentAlignment = Alignment.Center
                         ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Image(
+                                    painter = painterResource(R.drawable.no_internet),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(120.dp)
+                                )
                                 Text(
                                     text = "Please check your internet connection",
                                     color = Color.Red,
-                                    modifier = Modifier.padding(16.dp)
+                                    modifier = Modifier.padding(16.dp),
+                                    fontWeight = FontWeight.Medium,
+                                    style = MaterialTheme.typography.bodyMedium
                                 )
                                 Button(onClick = { articles.retry() }) {
                                     Text("Retry")
@@ -151,17 +161,19 @@ fun NewsScreenContent(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Icon(
-                                        imageVector = Icons.Default.Info,
-                                        contentDescription = "No News",
-                                        tint = Color.Gray,
-                                        modifier = Modifier.size(64.dp)
-                                    )
+                                   Image(
+                                       painter = painterResource(R.drawable.no_result),
+                                       contentDescription = null,
+                                       modifier = Modifier.size(120.dp)
+                                   )
                                     Spacer(modifier = Modifier.height(8.dp))
                                     Text(
                                         text = "No news found. Try a different search term.",
                                         style = MaterialTheme.typography.bodyMedium,
-                                        textAlign = TextAlign.Center
+                                        textAlign = TextAlign.Center,
+                                        color = Color.Black,
+                                        modifier = Modifier.padding(16.dp),
+                                        fontWeight = FontWeight.Medium
                                     )
                                 }
                             }

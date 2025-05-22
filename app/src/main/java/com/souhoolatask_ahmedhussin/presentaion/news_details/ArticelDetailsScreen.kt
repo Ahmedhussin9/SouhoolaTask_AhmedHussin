@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,7 +17,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.souhoolatask_ahmedhussin.domain.dto.Article
+import com.souhoolatask_ahmedhussin.ui.theme.Purple40
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -102,7 +101,7 @@ fun ArticleDetailsScreen(
             Text(
                 text = article.content ?: "No content available.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.DarkGray
+                color = Color.DarkGray,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -131,7 +130,7 @@ fun ArticleDetailsScreen(
                         context.startActivity(intent)
                     },
                     shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E5B98))
+                    colors = ButtonDefaults.buttonColors(containerColor = Purple40)
                 ) {
                     Icon(Icons.Default.Create, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
@@ -147,7 +146,7 @@ fun ArticleDetailsScreen(
                         context.startActivity(Intent.createChooser(shareIntent, "Share via"))
                     },
                     shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E5B98))
+                    colors = ButtonDefaults.buttonColors(containerColor = Purple40)
                 ) {
                     Icon(Icons.Default.Share, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
