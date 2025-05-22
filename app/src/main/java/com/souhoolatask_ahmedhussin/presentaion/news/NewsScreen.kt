@@ -1,5 +1,6 @@
 package com.souhoolatask_ahmedhussin.presentaion.news
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,6 +59,7 @@ fun NewsScreenSetup(
     viewModel: NewsViewModel = hiltViewModel(),
     onArticleClick: (Article) -> Unit
 ) {
+    val context = LocalContext.current
     val inputQuery by viewModel.inputQuery.collectAsState()
     val sortBy by viewModel.sortBy.collectAsState()
     val news = viewModel.news.collectAsLazyPagingItems()
@@ -69,7 +72,13 @@ fun NewsScreenSetup(
         onSearchDone = viewModel::onSearchDone,
         onSortByChanged = viewModel::onSortByChanged,
         onArticleClick = onArticleClick ,
-        onShareClick = { /* Handle share click */ },
+        onShareClick = {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, it.url)
+            }
+            context.startActivity(Intent.createChooser(shareIntent, "Share via"))
+        },
     )
 
 }
