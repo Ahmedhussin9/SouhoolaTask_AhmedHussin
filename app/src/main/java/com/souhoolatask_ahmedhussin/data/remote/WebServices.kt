@@ -7,7 +7,6 @@ import retrofit2.http.Query
 
 interface WebServices {
     companion object {
-        private const val apiKey = "ad2a3505e9334378855a08d367ab736a"
         const val BASE_URL = "https://newsapi.org/"
     }
 
@@ -18,6 +17,6 @@ interface WebServices {
         @Query("pageSize") pageSize:Int,
         @Query("sortBy") sortBy: String = "publishedAt",
         @Query("language") language: String = "en",
-        @Query("apiKey") apiKey: String = WebServices.apiKey
+        @Query("apiKey") apiKey: String
     ): NewsResponse
 }

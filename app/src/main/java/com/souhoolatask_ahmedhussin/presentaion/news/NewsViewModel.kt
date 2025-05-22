@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -21,24 +22,28 @@ import javax.inject.Inject
 class NewsViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
+    private val _inputQuery = MutableStateFlow("")
+    val inputQuery: StateFlow<String> = _inputQuery
 
     private val _query = MutableStateFlow("")
     private val _sortBy = MutableStateFlow("publishedAt")
     val query: StateFlow<String> = _query
     val sortBy: StateFlow<String> = _sortBy
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val news: StateFlow<PagingData<Article>> = combine(_query, _sortBy) { query, sortBy ->
-        newsRepository.getNews(query, sortBy)
+        if (query.isBlank()) flowOf(PagingData.empty())
+        else newsRepository.getNews(query, sortBy)
     }.flatMapLatest { it }
         .cachedIn(viewModelScope)
         .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
-    fun onQueryChanged(query: String) {
-        Log.e("query", query, )
-        _query.value = query
-    }
 
+    fun onInputQueryChanged(text: String) {
+        _inputQuery.value = text
+    }
+    fun onSearchDone() {
+        _query.value = _inputQuery.value.trim()
+    }
     fun onSortByChanged(sort: String) {
         _sortBy.value = sort
     }

@@ -20,7 +20,7 @@ class NewsRepositoryImpl(
     override  fun getNews(query: String, sortBy: String): Flow<PagingData<Article>> {
         Log.e("getNews", "Fetching news with query=$query, sortBy=$sortBy")
         return Pager(
-            config = PagingConfig(pageSize = 20),
+            config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 NewsPagingSource(webServices, query, sortBy)
             }
