@@ -49,11 +49,13 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.souhoolatask_ahmedhussin.domain.dto.Article
 import com.souhoolatask_ahmedhussin.presentaion.composables.NewsItem
 import com.souhoolatask_ahmedhussin.presentaion.composables.SearchBar
+import com.souhoolatask_ahmedhussin.presentaion.composables.SortByDropdownMenu
 import kotlinx.coroutines.launch
 
 @Composable
 fun NewsScreenSetup(
-    viewModel: NewsViewModel = hiltViewModel()
+    viewModel: NewsViewModel = hiltViewModel(),
+    onArticleClick: (Article) -> Unit
 ) {
     val inputQuery by viewModel.inputQuery.collectAsState()
     val sortBy by viewModel.sortBy.collectAsState()
@@ -66,7 +68,7 @@ fun NewsScreenSetup(
         onQueryChanged = viewModel::onInputQueryChanged,
         onSearchDone = viewModel::onSearchDone,
         onSortByChanged = viewModel::onSortByChanged,
-        onArticleClick = { /* Handle article click */ },
+        onArticleClick = onArticleClick ,
         onShareClick = { /* Handle share click */ },
     )
 
@@ -108,7 +110,7 @@ fun NewsScreenContent(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                when (val state = articles.loadState.refresh) {
+                when (articles.loadState.refresh) {
                     is LoadState.Loading -> {
                     }
 
@@ -119,7 +121,7 @@ fun NewsScreenContent(
                         ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
-                                    text = "Error: ${state.error.message}",
+                                    text = "Please check your internet connection",
                                     color = Color.Red,
                                     modifier = Modifier.padding(16.dp)
                                 )
@@ -132,6 +134,7 @@ fun NewsScreenContent(
 
                     is LoadState.NotLoading -> {
                         if (articles.itemCount == 0) {
+
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -158,6 +161,16 @@ fun NewsScreenContent(
                                 state = listState,
                                 modifier = Modifier.fillMaxSize()
                             ) {
+                                item {
+                                    SortByDropdownMenu(
+                                        currentSort = sortBy,
+                                        onSortSelected = onSortByChanged,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                                    )
+
+                                }
                                 items(articles.itemCount) { index ->
                                     val article = articles[index]
                                     if (article != null) {

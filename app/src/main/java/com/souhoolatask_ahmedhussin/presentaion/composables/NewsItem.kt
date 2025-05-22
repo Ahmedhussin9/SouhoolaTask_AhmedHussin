@@ -41,10 +41,10 @@ fun NewsItem(
 ) {
     OutlinedCard(
         modifier = modifier
-            .padding(20.dp)
+            .padding(horizontal = 20.dp , vertical = 8.dp)
             .fillMaxWidth()
-            .height(200.dp), elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
+            .height(160.dp), elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
         ),
         shape = RoundedCornerShape(12.dp),
         border = BorderStroke(1.dp, Color.LightGray),

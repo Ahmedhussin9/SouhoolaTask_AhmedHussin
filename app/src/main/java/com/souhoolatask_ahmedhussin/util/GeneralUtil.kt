@@ -12,11 +12,9 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-const val PAGING_START_INDEX = 1
-const val PAGING_PER_PAGE = 10
-const val apiKey = "28b09daf383a4ecf899e0404fdd8ae81"
 
-fun pagingConfig() = PagingConfig(pageSize = PAGING_PER_PAGE, enablePlaceholders = false)
+const val apiKey = "e4f539182b39448bb73fbc3d9f93e4e5"
+
 
 fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow {
     emit(ApiState.Loading())
@@ -51,35 +49,6 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
     }
 }
 
-
-fun <T> toResultFlowTemp(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow {
-    emit(ApiState.Loading())
-    try {
-        val response = call()
-        if (response.code() == 200) {
-            emit(ApiState.Success(response.body()))
-            Log.e("networkResponse", "Success\n" + response.body().toString())
-
-        } else {
-            val errorBody = response.errorBody()?.string()
-            val errorObject = Gson().fromJson(errorBody, ResultModel::class.java)
-            emit(ApiState.Error(UiText.DynamicString(errorBody ?: "Something went wrong!")))
-            Log.e("networkResponse", "Failure\n $errorBody")
-        }
-
-    } catch (e: HttpException) {
-        Log.e("networkResponse", "HttpException\n ${e.message.toString()}")
-        emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
-
-    } catch (e: IOException) {
-        Log.e("networkResponse", "IOException\n ${e.message.toString()}")
-        emit(ApiState.Error(UiText.StringResource(R.string.check_your_internet_connection)))
-
-    } catch (e: Exception) {
-        Log.e("networkResponse", "Exception\n ${e.message.toString()}")
-        emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
-    }
-}
 
 
 // -------------------------------------------------------------- //

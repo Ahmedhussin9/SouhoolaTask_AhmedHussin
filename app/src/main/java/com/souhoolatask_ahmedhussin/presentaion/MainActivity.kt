@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.souhoolatask_ahmedhussin.presentaion.news.NewsScreenSetup
 import com.souhoolatask_ahmedhussin.ui.theme.SouhoolaTask_AhmedHussinTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,8 +40,8 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            NewsScreenSetup()
-
+                            val navController = rememberNavController()
+                            AppNavGraph(navController)
                         }
                     }
                 }
@@ -54,9 +55,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     SouhoolaTask_AhmedHussinTheme {
-        Column(modifier = Modifier.fillMaxSize()) {
-            NewsScreenSetup()
 
-        }
     }
 }
