@@ -14,6 +14,7 @@ import java.io.IOException
 
 const val PAGING_START_INDEX = 1
 const val PAGING_PER_PAGE = 10
+const val apiKey = "ad2a3505e9334378855a08d367ab736a"
 
 fun pagingConfig() = PagingConfig(pageSize = PAGING_PER_PAGE, enablePlaceholders = false)
 
