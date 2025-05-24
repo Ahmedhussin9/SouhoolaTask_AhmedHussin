@@ -13,7 +13,7 @@ import retrofit2.Response
 import java.io.IOException
 
 
-const val apiKey = "e4f539182b39448bb73fbc3d9f93e4e5"
+const val apiKey = "ad2a3505e9334378855a08d367ab736a"
 
 
 fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow {
